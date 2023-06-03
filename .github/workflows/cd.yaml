@@ -1,144 +1,144 @@
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow
-name: CD
+# # yaml-language-server: $schema=https://json.schemastore.org/github-workflow
+# name: CD
 
-on:
-  pull_request:
-    types:
-      - closed
-      - opened
-      - synchronize
-      - reopened
-      - ready_for_review
-    branches:
-      - main
-  push:
-    branches:
-      - main
-  workflow_run:
-    workflows:
-      - CI
-    types:
-      - completed
+# on:
+#   pull_request:
+#     types:
+#       - closed
+#       - opened
+#       - synchronize
+#       - reopened
+#       - ready_for_review
+#     branches:
+#       - main
+#   push:
+#     branches:
+#       - main
+#   workflow_run:
+#     workflows:
+#       - CI
+#     types:
+#       - completed
 
-env:
-  TAG: $(git rev-parse --short HEAD)
-  PREVIEW_URL: https://preview-pr-${{ github.event.pull_request.number }}.eden-reich.com
+# env:
+#   TAG: $(git rev-parse --short HEAD)
+#   PREVIEW_URL: https://preview-pr-${{ github.event.pull_request.number }}.eden-reich.com
 
-jobs:
-  create-preview-environment:
-    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main' && github.event.action != 'closed'
-    environment:
-      name: preview
-      url: ${{ env.PREVIEW_URL }}
-    runs-on:
-      - self-hosted
-      - k8s
-    steps:
-      - name: Checkout infrastructure repository
-        uses: actions/checkout@v3
-        with:
-          repository: infrastructure
-          ref: main
+# jobs:
+#   create-preview-environment:
+#     if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main' && github.event.action != 'closed'
+#     environment:
+#       name: preview
+#       url: ${{ env.PREVIEW_URL }}
+#     runs-on:
+#       - self-hosted
+#       - k8s
+#     steps:
+#       - name: Checkout infrastructure repository
+#         uses: actions/checkout@v3
+#         with:
+#           repository: infrastructure
+#           ref: main
 
-      - name: Create ArgoCD Application
-        run: |
-          export FILE=blog-preview-${{ github.event.pull_request.number }}.yaml
-          cat <<-EOF > $FILE
-          ---
-          apiVersion: argoproj.io/v1alpha1
-          kind: Application
-          metadata:
-            name: preview-environment-${{ github.event.pull_request.number }}
-            namespace: argocd
-          spec:
-            project: staging
-            source:
-              repoURL: ${{ github.repository }}
-              targetRevision: ${{ github.ref_name }}
-              path: k8s
-            destination:
-              namespace: preview-environment-${{ github.event.pull_request.number }}
-              server: https://kubernetes.default.svc
-            syncPolicy:
-              automated:
-                prune: true
-                selfHeal: true
-              syncOptions:
-                - CreateNamespace=true
-          EOF
+#       - name: Create ArgoCD Application
+#         run: |
+#           export FILE=blog-preview-${{ github.event.pull_request.number }}.yaml
+#           cat <<-EOF > $FILE
+#           ---
+#           apiVersion: argoproj.io/v1alpha1
+#           kind: Application
+#           metadata:
+#             name: preview-environment-${{ github.event.pull_request.number }}
+#             namespace: argocd
+#           spec:
+#             project: staging
+#             source:
+#               repoURL: ${{ github.repository }}
+#               targetRevision: ${{ github.ref_name }}
+#               path: k8s
+#             destination:
+#               namespace: preview-environment-${{ github.event.pull_request.number }}
+#               server: https://kubernetes.default.svc
+#             syncPolicy:
+#               automated:
+#                 prune: true
+#                 selfHeal: true
+#               syncOptions:
+#                 - CreateNamespace=true
+#           EOF
 
-      - name: Push ArgoCD Application
-        run: |
-          git config --global user.email "blog@eden-reich.com"
-          git config --global user.name "Blog"
-          git add $FILE
-          git commit -m "Add preview environment for PR #${{ github.event.pull_request.number }}"
-          git push
+#       - name: Push ArgoCD Application
+#         run: |
+#           git config --global user.email "blog@eden-reich.com"
+#           git config --global user.name "Blog"
+#           git add $FILE
+#           git commit -m "Add preview environment for PR #${{ github.event.pull_request.number }}"
+#           git push
 
-  teardown-preview-environment:
-    needs: create-preview-environment
-    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main' && github.event.action == 'closed'
-    environment: preview
-    runs-on:
-      - self-hosted
-      - k8s
-    steps:
-      - name: Checkout infrastructure repository
-        uses: actions/checkout@v3
-        with:
-          repository: infrastructure
-          ref: main
+#   teardown-preview-environment:
+#     needs: create-preview-environment
+#     if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main' && github.event.action == 'closed'
+#     environment: preview
+#     runs-on:
+#       - self-hosted
+#       - k8s
+#     steps:
+#       - name: Checkout infrastructure repository
+#         uses: actions/checkout@v3
+#         with:
+#           repository: infrastructure
+#           ref: main
 
-      - name: Delete ArgoCD Application
-        run: |
-          git config --global user.email "blog@eden-reich.com"
-          git config --global user.name "Blog"
-          git rm -f blog-preview-${{ github.event.pull_request.number }}.yaml
-          git commit -m "Delete preview environment for PR #${{ github.event.pull_request.number }}"
-          git push
+#       - name: Delete ArgoCD Application
+#         run: |
+#           git config --global user.email "blog@eden-reich.com"
+#           git config --global user.name "Blog"
+#           git rm -f blog-preview-${{ github.event.pull_request.number }}.yaml
+#           git commit -m "Delete preview environment for PR #${{ github.event.pull_request.number }}"
+#           git push
 
-  deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    environment: production
-    runs-on:
-      - self-hosted
-      - k8s
-    steps:
-      - name: Checkout infrastructure repository
-        uses: actions/checkout@v3
-        with:
-          repository: infrastructure
-          ref: main
+#   deploy:
+#     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+#     environment: production
+#     runs-on:
+#       - self-hosted
+#       - k8s
+#     steps:
+#       - name: Checkout infrastructure repository
+#         uses: actions/checkout@v3
+#         with:
+#           repository: infrastructure
+#           ref: main
 
-      - name: Patch ArgoCD Application
-        run: |
-          cat <<-EOF > blog.yaml
-          ---
-          apiVersion: argoproj.io/v1alpha1
-          kind: Application
-          metadata:
-            name: blog
-            namespace: argocd
-          spec:
-            project: production
-            source:
-              repoURL: ${{ github.repository }}
-              targetRevision: main
-              path: k8s
-            destination:
-              namespace: 
-              server: https://kubernetes.default.svc
-            syncPolicy:
-              automated:
-                prune: true
-                selfHeal: true
-          EOF
+#       - name: Patch ArgoCD Application
+#         run: |
+#           cat <<-EOF > blog.yaml
+#           ---
+#           apiVersion: argoproj.io/v1alpha1
+#           kind: Application
+#           metadata:
+#             name: blog
+#             namespace: argocd
+#           spec:
+#             project: production
+#             source:
+#               repoURL: ${{ github.repository }}
+#               targetRevision: main
+#               path: k8s
+#             destination:
+#               namespace: 
+#               server: https://kubernetes.default.svc
+#             syncPolicy:
+#               automated:
+#                 prune: true
+#                 selfHeal: true
+#           EOF
 
-      - name: Push ArgoCD Application
-        run: |
-          git config --global user.email "blog@eden-reich.com"
-          git config --global user.name "Blog"
-          git add .
-          git commit -m "Update blog application"
-          git push
+#       - name: Push ArgoCD Application
+#         run: |
+#           git config --global user.email "blog@eden-reich.com"
+#           git config --global user.name "Blog"
+#           git add .
+#           git commit -m "Update blog application"
+#           git push
 
