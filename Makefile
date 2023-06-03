@@ -1,5 +1,5 @@
 
-ENVIRONMENT ?= development
+TAG ?= latest
 
 help:
 	@echo "Usage:"
@@ -40,7 +40,12 @@ build: .npm .nodejs .version-required
 
 .PHONY: package
 package: .docker
-	docker build -t blog --target $(ENVIRONMENT) .
+	docker build \
+		-t ghcr.io/blog-frontend-${ENVIRONMENT}:latest \
+		-t ghcr.io/blog-frontend-${ENVIRONMENT}:${TAG} \
+		--cache-from blog-frontend-${ENVIRONMENT}:latest .
+	docker push ghcr.io/blog-frontend-${ENVIRONMENT}:latest
+	docker push ghcr.io/blog-frontend-${ENVIRONMENT}:${TAG}
 
 .PHONY: clean
 clean:

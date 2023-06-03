@@ -12,6 +12,6 @@ FROM common AS development
 ENV NODE_ENV=development
 CMD [ "npm", "run", "dev" ]
 
-FROM nginx:1.24.0-alpine3.17-slim AS production
+FROM nginx:1.24.0-alpine3.17-slim
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder --chown=nginx:nginx /app/out /usr/share/nginx/html
