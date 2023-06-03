@@ -10,6 +10,7 @@ help:
 	@echo " lint       lint the application"
 	@echo " build      build the application"
 	@echo " package    package the application as container image"
+	@echo " push       push the application as container image to a registry"
 	@echo " clean      clean the application"
 
 default: help
@@ -41,11 +42,14 @@ build: .npm .nodejs .version-required
 .PHONY: package
 package: .docker
 	docker build \
-		-t ghcr.io/blog-frontend-${ENVIRONMENT}:latest \
-		-t ghcr.io/blog-frontend-${ENVIRONMENT}:${TAG} \
-		--cache-from blog-frontend-${ENVIRONMENT}:latest .
-	docker push ghcr.io/blog-frontend-${ENVIRONMENT}:latest
-	docker push ghcr.io/blog-frontend-${ENVIRONMENT}:${TAG}
+		-t ghcr.io/blog-frontend:latest \
+		-t ghcr.io/blog-frontend:${TAG} \
+		--cache-from ghcr.io/blog-frontend:latest .
+
+.PHONY: push
+push: .docker
+	docker push ghcr.io/blog-frontend:latest
+	docker push ghcr.io/blog-frontend:${TAG}
 
 .PHONY: clean
 clean:

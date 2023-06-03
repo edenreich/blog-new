@@ -25,4 +25,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build and push
-        run: ENVIRONMENT=production TAG=${{ env.TAG }} make package
+        run: |
+          TAG=${{ env.TAG }} make package
+          TAG=${{ env.TAG }} make push
