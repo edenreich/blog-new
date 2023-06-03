@@ -1,5 +1,5 @@
 FROM node:17.1.0-alpine3.12 AS common
-RUN apk add --update libc6-compat
+RUN apk update
 USER node
 WORKDIR /app
 
