@@ -17,6 +17,7 @@ on:
 env:
   TAG: $(git rev-parse --short HEAD)
   PREVIEW_URL: https://preview-app-${{ github.event.pull_request.number }}.eden-reich.com
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
   build:
@@ -28,7 +29,7 @@ jobs:
 
       - name: Login
         run: |
-          echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
+          echo ${{ secrets.GH_TOKEN }} | docker login ghcr.io -u edenreich --password-stdin
 
       - name: Build container image
         run: |
@@ -55,10 +56,6 @@ jobs:
         with:
           repository: edenreich/infrastructure
           ref: main
-
-      - name: Login
-        run: |
-          echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
 
       - name: Create ArgoCD Application
         run: |
