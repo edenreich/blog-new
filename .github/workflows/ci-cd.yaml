@@ -20,28 +20,28 @@ env:
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
-  # build:
-  #   runs-on:
-  #     - self-hosted
-  #     - k8s
-  #   steps:
-  #     - uses: actions/checkout@v3
+  build:
+    runs-on:
+      - self-hosted
+      - k8s
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Login
-  #       run: |
-  #         echo ${{ secrets.GH_TOKEN }} | docker login ghcr.io -u edenreich --password-stdin
+      - name: Login
+        run: |
+          echo ${{ secrets.GH_TOKEN }} | docker login ghcr.io -u edenreich --password-stdin
 
-  #     - name: Build container image
-  #       run: |
-  #         TAG=${{ env.TAG }} make package
+      - name: Build container image
+        run: |
+          TAG=${{ env.TAG }} make package
 
-  #     - name: Push container image to ghcr.io
-  #       run: |
-  #         TAG=${{ env.TAG }} make push
+      - name: Push container image to ghcr.io
+        run: |
+          TAG=${{ env.TAG }} make push
 
   create-preview-environment:
     if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main'
-    # needs: build
+    needs: build
     environment:
       name: preview
       url: ${{ env.PREVIEW_URL }}
