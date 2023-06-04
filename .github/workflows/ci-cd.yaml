@@ -71,8 +71,8 @@ jobs:
           spec:
             project: staging
             source:
-              repoURL: ${{ github.repository }}
-              targetRevision: ${{ github.ref_name }}
+              repoURL: "${{ github.server_url }}/${{ github.repository }}.git"
+              targetRevision: ${{ github.head_ref }}
               path: k8s
             destination:
               namespace: preview-environment-${{ github.event.pull_request.number }}
