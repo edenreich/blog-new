@@ -32,6 +32,7 @@ jobs:
 
       - name: Push container image to ghcr.io
         run: |
+          echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
           TAG=${{ env.TAG }} make push
 
   create-preview-environment:
