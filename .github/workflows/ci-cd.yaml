@@ -89,7 +89,9 @@ jobs:
 
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    environment: production
+    environment:
+      name: production
+      url: https://eden-reich.com
     runs-on:
       - self-hosted
       - k8s
