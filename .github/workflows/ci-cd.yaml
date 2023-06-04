@@ -148,6 +148,8 @@ jobs:
                 parameters:
                   - name: image.tag
                     value: ${{ env.TAG }}
+                  - name: ingress.host
+                    value: eden-reich.com
             destination:
               namespace: blog
               name: production
