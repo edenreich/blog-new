@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: PREVIEW_URL
+    - host: URL
       http:
         paths:
           - pathType: Prefix

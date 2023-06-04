@@ -16,4 +16,4 @@ patches:
     patch: |-
       - op: replace
         path: /spec/rules/0/host
-        value: www.eden-reich.com
+        value: eden-reich.com
