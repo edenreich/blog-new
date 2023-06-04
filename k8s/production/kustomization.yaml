@@ -17,3 +17,6 @@ patches:
       - op: replace
         path: /spec/rules/0/host
         value: eden-reich.com
+      - op: add
+        path: /metadata/annotations/nginx.ingress.kubernetes.io~1from-to-www-redirect
+        value: "true"
