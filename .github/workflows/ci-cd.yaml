@@ -87,12 +87,12 @@ jobs:
 
       - name: Push ArgoCD Application
         run: |
-          echo ${{ env.GITHUB_TOKEN }} | wc
+          git remote set-url origin https://edenreich:${{ env.GITHUB_TOKEN }}@github.com/edenreich/infrastructure.git
           git config --global user.email "eden.reich@gmail.com"
           git config --global user.name "Blog"
           git add ${{ env.FILE }}
           git commit -m "Add preview environment for PR #${{ github.event.pull_request.number }}"
-          git push
+          git push origin main
 
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
