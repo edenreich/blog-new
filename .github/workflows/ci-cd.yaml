@@ -86,6 +86,7 @@ jobs:
               syncOptions:
                 - CreateNamespace=true
           EOF
+          git diff --color main
 
       - name: Push ArgoCD Application
         run: |
