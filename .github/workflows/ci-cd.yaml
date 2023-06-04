@@ -68,6 +68,11 @@ jobs:
           metadata:
             name: preview-environment-${{ github.event.pull_request.number }}
             namespace: argocd
+            finalizers:
+              - resources-finalizer.argocd.argoproj.io
+            labels:
+              name: preview-environment-${{ github.event.pull_request.number }}
+              project: staging
           spec:
             project: staging
             source:
