@@ -83,6 +83,8 @@ jobs:
                 parameters:
                   - name: image.tag
                     value: ${{ env.TAG }}
+                  - name: ingress.host
+                    value: ${{ env.PREVIEW_URL }}
             destination:
               namespace: preview-environment-${{ github.event.pull_request.number }}
               name: staging
