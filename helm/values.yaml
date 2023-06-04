@@ -39,7 +39,12 @@ ingress:
     - host: chart-example.local
       paths:
         - path: /
-          pathType: ImplementationSpecific
+          pathType: Prefix
+          backend:
+            service:
+              name: blog
+              port:
+                number: 8080
   tls: []
 
 resources:

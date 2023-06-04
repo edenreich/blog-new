@@ -83,8 +83,18 @@ jobs:
                 parameters:
                   - name: image.tag
                     value: ${{ env.TAG }}
-                  - name: ingress.host
+                  - name: ingress.enabled
+                    value: "true"
+                  - name: ingress.hosts[0].host
                     value: ${{ env.PREVIEW_URL }}
+                  - name: ingress.hosts[0].paths[0].path
+                    value: /
+                  - name: ingress.hosts[0].paths[0].pathType
+                    value: Prefix
+                  - name: ingress.hosts[0].paths[0].backend.service.name
+                    value: blog
+                  - name: ingress.hosts[0].paths[0].backend.service.port.number
+                    value: 8080
             destination:
               namespace: preview-environment-${{ github.event.pull_request.number }}
               name: staging
@@ -148,8 +158,30 @@ jobs:
                 parameters:
                   - name: image.tag
                     value: ${{ env.TAG }}
-                  - name: ingress.host
+                  - name: ingress.enabled
+                    value: "true"
+                  - name: ingress.annotations."nginx\.ingress\.kubernetes\.io/from-to-www-redirect"
+                    value: "true"
+                  - name: ingress.hosts[0].host
                     value: eden-reich.com
+                  - name: ingress.hosts[0].paths[0].path
+                    value: /
+                  - name: ingress.hosts[0].paths[0].pathType
+                    value: Prefix
+                  - name: ingress.hosts[0].paths[0].backend.service.name
+                    value: blog
+                  - name: ingress.hosts[0].paths[0].backend.service.port.number
+                    value: 8080
+                  - name: ingress.hosts[1].host
+                    value: www.eden-reich.com
+                  - name: ingress.hosts[1].paths[0].path
+                    value: /
+                  - name: ingress.hosts[1].paths[0].pathType
+                    value: Prefix
+                  - name: ingress.hosts[1].paths[0].backend.service.name
+                    value: blog
+                  - name: ingress.hosts[1].paths[0].backend.service.port.number
+                    value: 8080
             destination:
               namespace: blog
               name: production
