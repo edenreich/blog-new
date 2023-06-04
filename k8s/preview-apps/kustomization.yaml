@@ -9,7 +9,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/template/spec/containers/0/image
-        value: ghcr.io/blog-frontend:latest
+        value: ghcr.io/edenreich/blog-frontend:latest
   - target:
       kind: Ingress
       name: blog

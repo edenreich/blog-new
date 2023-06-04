@@ -2,14 +2,14 @@
 resources:
   - ../base
 
-namespace: blog-production
-
-images:
-  - name: ghcr.io/blog-frontend
-    newName: ghcr.io/blog-frontend
-    newTag: latest
-
 patches:
+  - target:
+      kind: Deployment
+      name: blog
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/image
+        value: ghcr.io/edenreich/blog-frontend:latest
   - target:
       kind: Ingress
       name: blog
