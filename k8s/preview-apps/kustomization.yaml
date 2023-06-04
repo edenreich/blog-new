@@ -2,8 +2,6 @@
 resources:
   - ../base
 
-namespace: blog
-
 patches:
   - target:
       kind: Deployment
