@@ -90,7 +90,7 @@ jobs:
 
       - name: Push ArgoCD Application
         run: |
-          git config --global user.email "blog@eden-reich.com"
+          git config --global user.email "eden.reich@gmail.com"
           git config --global user.name "Blog"
           git add ${{ env.FILE }}
           git commit -m "Add preview environment for PR #${{ github.event.pull_request.number }}"
@@ -140,7 +140,7 @@ jobs:
 
       - name: Push ArgoCD Application
         run: |
-          git config --global user.email "blog@eden-reich.com"
+          git config --global user.email "eden.reich@gmail.com"
           git config --global user.name "Blog"
           git add ${{ env.FILE }}
           git commit -m "Bump blog production version to ${{ env.TAG }}"
