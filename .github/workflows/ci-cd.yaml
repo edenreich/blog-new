@@ -15,7 +15,7 @@ on:
       - main
 
 env:
-  TAG: $(git rev-parse --short HEAD)
+  TAG: $(echo ${{ github.sha }} | cut -c1-8)
   PREVIEW_URL: preview-app-${{ github.event.pull_request.number }}.eden-reich.com
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
