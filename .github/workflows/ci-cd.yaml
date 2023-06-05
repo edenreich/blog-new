@@ -76,7 +76,7 @@ jobs:
           spec:
             project: staging
             source:
-              repoURL: "${{ github.server_url }}/${{ github.repository }}.git"
+              repoURL: ${{ github.server_url }}/${{ github.repository }}.git
               targetRevision: ${{ github.head_ref }}
               path: helm
               helm:
@@ -151,7 +151,7 @@ jobs:
           spec:
             project: production
             source:
-              repoURL: "${{ github.server_url }}/${{ github.repository }}.git"
+              repoURL: ${{ github.server_url }}/${{ github.repository }}.git
               targetRevision: main
               path: helm
               helm:
