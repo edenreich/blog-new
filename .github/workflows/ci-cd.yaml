@@ -94,7 +94,7 @@ jobs:
                   - name: ingress.hosts[0].paths[0].backend.service.name
                     value: blog
                   - name: ingress.hosts[0].paths[0].backend.service.port.number
-                    value: 8080
+                    value: "8080"
             destination:
               namespace: preview-environment-${{ github.event.pull_request.number }}
               name: staging
@@ -172,7 +172,7 @@ jobs:
                   - name: ingress.hosts[0].paths[0].backend.service.name
                     value: blog
                   - name: ingress.hosts[0].paths[0].backend.service.port.number
-                    value: 8080
+                    value: "8080"
                   - name: ingress.hosts[1].host
                     value: www.eden-reich.com
                   - name: ingress.hosts[1].paths[0].path
@@ -182,7 +182,7 @@ jobs:
                   - name: ingress.hosts[1].paths[0].backend.service.name
                     value: blog
                   - name: ingress.hosts[1].paths[0].backend.service.port.number
-                    value: 8080
+                    value: "8080"
             destination:
               namespace: blog
               name: production
