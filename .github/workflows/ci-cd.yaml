@@ -16,7 +16,7 @@ on:
 
 env:
   TAG: $(git rev-parse --short HEAD)
-  PREVIEW_URL: https://preview-app-${{ github.event.pull_request.number }}.eden-reich.com
+  PREVIEW_URL: preview-app-${{ github.event.pull_request.number }}.eden-reich.com
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
@@ -44,7 +44,7 @@ jobs:
     needs: build
     environment:
       name: preview
-      url: ${{ env.PREVIEW_URL }}
+      url: https://${{ env.PREVIEW_URL }}
     env:
       FILE: argocd/01-clusters/staging/blog-preview-${{ github.event.pull_request.number }}.yaml
     runs-on:
