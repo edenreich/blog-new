@@ -8,9 +8,6 @@ on:
     branches:
       - main
 
-env:
-  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
 jobs:
   teardown-preview-environment:
     environment: preview
@@ -23,7 +20,7 @@ jobs:
         with:
           repository: infrastructure
           ref: main
-          token: ${{ env.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Delete ArgoCD Application
         run: |

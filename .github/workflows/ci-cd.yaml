@@ -206,4 +206,3 @@ jobs:
           git add ${{ env.FILE }}
           git commit -m "Bump blog production version to ${{ env.TAG }}"
           git push
-
