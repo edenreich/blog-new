@@ -9,7 +9,8 @@ on:
       - main
 
 jobs:
-  teardown-preview-environment:
+  teardown_preview_environment:
+    name: Teardown Preview Environment
     environment: preview
     runs-on:
       - self-hosted
