@@ -9,7 +9,7 @@ imagePullSecrets:
   - name: ghcr-ro
 
 nameOverride: ""
-fullnameOverride: "blog-frontend"
+fullnameOverride: blog-frontend
 
 serviceAccount:
   create: true

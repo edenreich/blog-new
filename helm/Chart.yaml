@@ -1,5 +1,5 @@
 apiVersion: v2
-name: blog
+name: blog-frontend
 description: A Helm chart for my blog
 
 # A chart can be either an 'application' or a 'library' chart.
