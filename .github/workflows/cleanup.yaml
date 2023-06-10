@@ -19,7 +19,7 @@ jobs:
       - name: Checkout infrastructure repository
         uses: actions/checkout@v3
         with:
-          repository: infrastructure
+          repository: edenreich/infrastructure
           ref: main
           token: ${{ secrets.GH_TOKEN }}
 

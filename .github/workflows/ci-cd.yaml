@@ -89,7 +89,7 @@ jobs:
               helm:
                 parameters:
                   - name: image.tag
-                    value: ${{ env.TAG }}
+                    value: "${{ env.TAG }}"
                   - name: ingress.enabled
                     value: "true"
                   - name: ingress.hosts[0].host
@@ -166,7 +166,7 @@ jobs:
               helm:
                 parameters:
                   - name: image.tag
-                    value: ${{ env.TAG }}
+                    value: "${{ env.TAG }}"
                   - name: ingress.enabled
                     value: "true"
                   - name: ingress.hosts[0].host
