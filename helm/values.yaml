@@ -1,0 +1,59 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/edenreich/blog-frontend
+  pullPolicy: IfNotPresent
+  tag: latest
+
+imagePullSecrets:
+  - name: ghcr-ro
+
+nameOverride: ""
+fullnameOverride: blog-frontend
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: blog
+
+podAnnotations: {}
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  className: nginx
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: blog
+              port:
+                number: 8080
+  tls: []
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

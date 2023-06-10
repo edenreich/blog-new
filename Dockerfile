@@ -1,5 +1,4 @@
-FROM node:17.1.0-alpine3.12 AS common
-RUN apk add --update libc6-compat
+FROM node:20.2.0-bullseye-slim AS common
 USER node
 WORKDIR /app
 

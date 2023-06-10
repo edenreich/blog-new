@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow
+name: Cleanup Preview Environment
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  teardown_preview_environment:
+    name: Teardown Preview Environment
+    environment: preview
+    runs-on:
+      - self-hosted
+      - k8s
+    steps:
+      - name: Checkout infrastructure repository
+        uses: actions/checkout@v3
+        with:
+          repository: infrastructure
+          ref: main
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Delete ArgoCD Application
+        run: |
+          git config --global user.email "blog@eden-reich.com"
+          git config --global user.name "Blog"
+          git rm -f argocd/01-clusters/staging/blog-preview-${{ github.event.pull_request.number }}.yaml
+          git commit -m "Delete preview environment for PR #${{ github.event.pull_request.number }}"
+          git push
