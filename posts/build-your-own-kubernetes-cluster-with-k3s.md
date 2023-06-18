@@ -3,7 +3,7 @@ title: 'Build your own Kubernetes Cluster with K3S'
 description: 'Build your own Kubernetes Cluster with K3S'
 date: 'June 19 2020'
 thumbnail: 'thumbnail_raspberry_pi_cluster.jpeg'
-tags: 'k3s, kubernetes, raspberry pi'
+tags: 'k3s, kubernetes, raspberry pi, bare-metal'
 excerpt: "Creating your own kubernetes cluster on raspberry pi doesn't take much effort and it was a fun experience..."
 draft: false
 ---
