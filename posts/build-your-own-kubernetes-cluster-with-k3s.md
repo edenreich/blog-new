@@ -3,7 +3,7 @@ title: 'Build your own Kubernetes Cluster with K3S'
 description: 'Build your own Kubernetes Cluster with K3S'
 date: 'June 19 2020'
 thumbnail: 'thumbnail_raspberry_pi_cluster.jpeg'
-tags: 'k3s, kubernetes, raspberry pi'
+tags: 'k3s, kubernetes, raspberry pi, bare-metal'
 excerpt: "Creating your own kubernetes cluster on raspberry pi doesn't take much effort and it was a fun experience..."
 draft: false
 ---
@@ -395,19 +395,20 @@ kubectl apply -f ingress.yaml
 
 We're almost done, we just need to tell configure our home router and tell cloudflare to direct traffic to our public ip on port 80 and 443. In cloudflare let's go to **DNS > DNS management for my-awesome-site.com** and add 2 A records there:
 
-| Type | Name | Content | TTL | Proxy Status | 
-| ------------- | ------------- | ------------- | ------------- | ------------- |
-| A  | my-awesome-site.com  | [your-public-ip-here] | Auto | Proxied |
-| A  | www.my-awesome-site.com | [your-public-ip-here] | Auto | Proxied |
+
+| Type          | Name                    | Content               | TTL           | Proxy Status  |
+| ------------- | ------------------------| --------------------- | ------------- | ------------- |
+| A             | my-awesome-site.com     | [your-public-ip-here] | Auto          | Proxied       |
+| A             | www.my-awesome-site.com | [your-public-ip-here] | Auto          | Proxied       |
 
 Note: to figure out what's the public ip address you got from your ISP you can simply call the following url: **https://ifconfig.me/ip**
 
 We also need to add the nameservers of our domain provider(where we registered that domain), so in **Cloudflare > DNS > Cloudflare nameservers** let's enter the nameservers we got from our domain provider:
 
-| Type | Value |
-| ------------- | ------------- |
-| NS | some.ns.from.domain.provider |
-| NS | some.ns.from.domain.provider |
+| Type          | Value                        |
+| ------------- | ---------------------------- |
+| NS            | some.ns.from.domain.provider |
+| NS            | some.ns.from.domain.provider |
 
 Ok so now all there is left to do is to configure port-forwarding on our home router, simply type the following address in your browser: http://192.168.1.1
 
