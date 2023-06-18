@@ -3,7 +3,7 @@ title: 'Kubernetes for local development with Kubernetes in Docker(KinD)'
 description: 'Kubernetes for local development with Kubernetes in Docker(KinD)'
 date: 'April 19 2020'
 thumbnail: 'thumbnail_kind.png'
-tags: 'kubernetes, k8s, kind, development'
+tags: 'kubernetes, kind, development'
 excerpt: "In this short tutorial we're going to create 3 node cluster with a Metal LB deployed so we can test our services locally..."
 draft: false
 ---
