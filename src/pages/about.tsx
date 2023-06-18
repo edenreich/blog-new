@@ -7,7 +7,9 @@ const AboutPage: React.FC = () => {
   return (
     <>
       <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>About | Engineering Blog</title>
+        <meta property="og:title" content="About | Engineering Blog" />
       </Head>
       <section className="container mx-auto">
         <h1 className="text-4xl font-bold text-center mb-8">About Me</h1>
