@@ -78,8 +78,8 @@ jobs:
             finalizers:
               - resources-finalizer.argocd.argoproj.io
             labels:
-              name: preview-environment-${{ github.event.pull_request.number }}
-              project: staging
+              app.kubernetes.io/name: preview-environment-${{ github.event.pull_request.number }}
+              app.kubernetes.io/part-of: blog
           spec:
             project: staging
             source:
@@ -155,8 +155,8 @@ jobs:
             finalizers:
               - resources-finalizer.argocd.argoproj.io
             labels:
-              name: blog
-              project: production
+              app.kubernetes.io/name: blog
+              app.kubernetes.io/part-of: blog
           spec:
             project: production
             source:
