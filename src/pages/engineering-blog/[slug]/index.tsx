@@ -11,7 +11,9 @@ const Post: React.FC<PostProps> = ({ post }) => {
   return (
     <>
       <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>{`${post.metadata.title} | Engineering Blog`}</title>
+        <meta property="og:title" content={`${post.metadata.title} | Engineering Blog`} />
       </Head>
       <section className="px-4 sm:pl-10 sm:pr-10 max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold mt-8">{post.metadata.title}</h1>

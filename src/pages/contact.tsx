@@ -19,7 +19,9 @@ const ContactPage: React.FC = () => {
   return (
     <>
       <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>Contact | Engineering Blog</title>
+        <meta property="og:title" content="Contact | Engineering Blog" />
       </Head>
       <div className="flex justify-center items-center h-screen bg-gray-100">
         <div className="bg-white p-8 rounded shadow-lg w-96">

@@ -45,7 +45,9 @@ const Home: React.FC<HomeProps> = ({ posts, tags }) => {
   return (
     <>
       <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>Home | Engineering Blog</title>
+        <meta property="og:title" content="Home | Engineering Blog" />
       </Head>
       <section className="flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold mt-8">Welcome to my blog</h1>
