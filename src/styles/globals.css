@@ -99,8 +99,6 @@ code {
 }
 
 @media screen and (max-width: 600px) {
-  /* Apply styles when the screen width is 600px or less */
-
   table {
     font-size: 14px;
   }
