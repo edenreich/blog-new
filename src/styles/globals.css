@@ -35,3 +35,14 @@ h3 {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
+
+ul,
+ol {
+  margin: 15px 0 15px 30px;
+  padding: 0;
+  list-style: disc;
+}
+
+li {
+  margin-left: 0;
+}
