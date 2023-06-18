@@ -7,6 +7,7 @@ import remarkRehype from 'remark-rehype';
 import rehypeRaw from 'rehype-raw';
 import rehypeStringify from 'rehype-stringify';
 import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from 'remark-gfm';
 import langHttp from 'highlight.js/lib/languages/http';
 import langNginx from 'highlight.js/lib/languages/nginx';
 import langDockerfile from 'highlight.js/lib/languages/dockerfile';
@@ -27,6 +28,7 @@ export async function fetchMarkdownPosts(): Promise<MarkdownPost[]> {
 
       const processedContent = await unified()
         .use(remarkParse)
+        .use(remarkGfm)
         .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeRaw)
         .use(rehypeHighlight, {
