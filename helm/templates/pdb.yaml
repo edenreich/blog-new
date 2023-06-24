@@ -1,11 +1,11 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ include "blog.fullname" . }}
+  name: {{ include "engineering-blog.fullname" . }}
   labels:
-    {{- include "blog.labels" . | nindent 4 }}
+    {{- include "engineering-blog.labels" . | nindent 4 }}
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: {{ include "blog.fullname" . }}
+      app: {{ include "engineering-blog.fullname" . }}

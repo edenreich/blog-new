@@ -1,5 +1,6 @@
 
 TAG ?= latest
+APP_NAME ?= engineering-blog
 
 help:
 	@echo "Usage:"
@@ -42,15 +43,15 @@ build: .npm .nodejs .version-required
 .PHONY: package
 package: .docker
 	docker build \
-		-t ghcr.io/edenreich/blog-frontend:latest \
-		-t ghcr.io/edenreich/blog-frontend:${TAG} \
-		--cache-from ghcr.io/edenreich/blog-frontend:latest .
+		-t ghcr.io/edenreich/$(APP_NAME):latest \
+		-t ghcr.io/edenreich/$(APP_NAME):${TAG} \
+		--cache-from ghcr.io/edenreich/$(APP_NAME):latest .
 	docker images
 
 .PHONY: push
 push: .docker
-	docker push ghcr.io/edenreich/blog-frontend:latest
-	docker push ghcr.io/edenreich/blog-frontend:${TAG}
+	docker push ghcr.io/edenreich/$(APP_NAME):latest
+	docker push ghcr.io/edenreich/$(APP_NAME):${TAG}
 
 .PHONY: clean
 clean:
