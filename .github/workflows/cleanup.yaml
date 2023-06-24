@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+env:
+  APP_NAME: engineering-blog
+  APP_DISPLAY_NAME: Engineering Blog
+
 jobs:
   teardown_preview_environment:
     name: Teardown Preview Environment
@@ -25,8 +29,8 @@ jobs:
 
       - name: Delete ArgoCD Application
         run: |
-          git config --global user.email "blog@eden-reich.com"
-          git config --global user.name "Blog"
-          git rm -f argocd/01-clusters/staging/blog-preview-${{ github.event.pull_request.number }}.yaml
-          git commit -m "Delete preview environment for PR #${{ github.event.pull_request.number }}"
+          git config --global user.email "${{ env.APP_NAME }}@eden-reich.com"
+          git config --global user.name "${{ env.APP_DISPLAY_NAME }}"
+          git rm -f argocd/01-clusters/staging/${{ env.APP_NAME }}-preview-pr-${{ github.event.pull_request.number }}.yaml
+          git commit -m "Delete ${{ env.APP_NAME }} preview environment for PR #${{ github.event.pull_request.number }}"
           git push
