@@ -128,7 +128,7 @@ jobs:
     needs: build
     environment:
       name: production
-      url: https://travel.eden-reich.com
+      url: https://${{ env.APP_NAME }}.eden-reich.com
     runs-on:
       - self-hosted
       - k8s
@@ -168,7 +168,7 @@ jobs:
                   - name: ingress.enabled
                     value: "true"
                   - name: ingress.hosts[0].host
-                    value: travel.eden-reich.com
+                    value: ${{ env.APP_NAME }}.eden-reich.com
                   - name: ingress.hosts[0].paths[0].path
                     value: /
                   - name: ingress.hosts[0].paths[0].pathType
