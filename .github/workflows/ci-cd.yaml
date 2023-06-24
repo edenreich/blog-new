@@ -16,7 +16,7 @@ on:
 
 env:
   TAG: $(echo ${{ github.sha }} | cut -c1-8)
-  PREVIEW_URL: engineering-blog-pr-${{ github.event.pull_request.number }}.preview.eden-reich.com
+  PREVIEW_URL: engineering-blog-pr-${{ github.event.pull_request.number }}-preview.eden-reich.com
   APP_NAME: engineering-blog
   APP_DISPLAY_NAME: Engineering Blog
 
