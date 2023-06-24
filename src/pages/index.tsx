@@ -50,7 +50,7 @@ const Home: React.FC<HomeProps> = ({ posts, tags }) => {
         <meta property="og:title" content="Home | Engineering Blog" />
       </Head>
       <section className="flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold mt-8">Welcome to my blog</h1>
+        <h1 className="text-4xl font-bold mt-8">Engineering Blog</h1>
         <p className="text-xl mt-4 text-center">
           This is a blog about software engineering, web development, and
           anything else I find interesting.
