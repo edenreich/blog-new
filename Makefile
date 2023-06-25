@@ -51,7 +51,7 @@ package: .docker
 .PHONY: push
 push: .docker
 	docker push ghcr.io/edenreich/$(APP_NAME):latest
-	docker push ghcr.io/edenreich/$(APP_NAME):${TAG}
+	docker push ghcr.io/edenreich/$(APP_NAME):$(TAG)
 
 .PHONY: clean
 clean:
