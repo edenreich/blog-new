@@ -44,7 +44,7 @@ build: .npm .nodejs .version-required
 package: .docker
 	docker build \
 		-t ghcr.io/edenreich/$(APP_NAME):latest \
-		-t ghcr.io/edenreich/$(APP_NAME):${TAG} \
+		-t ghcr.io/edenreich/$(APP_NAME):$(TAG) \
 		--cache-from ghcr.io/edenreich/$(APP_NAME):latest .
 	docker images
 
